@@ -1,0 +1,40 @@
+TAP version 13
+# Subtest: carrega os cinco endpoints e aplica filtros na atualização
+ok 1 - carrega os cinco endpoints e aplica filtros na atualização
+  ---
+  duration_ms: 34.2015
+  type: 'test'
+  ...
+# Subtest: falha parcial preserva dados anteriores e identifica desatualização
+ok 2 - falha parcial preserva dados anteriores e identifica desatualização
+  ---
+  duration_ms: 3.5089
+  type: 'test'
+  ...
+# Subtest: sessão expirada oferece login e falha inicial não mantém carregamento
+ok 3 - sessão expirada oferece login e falha inicial não mantém carregamento
+  ---
+  duration_ms: 3.101
+  type: 'test'
+  ...
+# Subtest: resposta antiga nunca sobrescreve consulta mais recente
+ok 4 - resposta antiga nunca sobrescreve consulta mais recente
+  ---
+  duration_ms: 2.7142
+  type: 'test'
+  ...
+# Subtest: datas invertidas não disparam consulta e limpar remove validação
+ok 5 - datas invertidas não disparam consulta e limpar remove validação
+  ---
+  duration_ms: 3.4893
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 134.9731
