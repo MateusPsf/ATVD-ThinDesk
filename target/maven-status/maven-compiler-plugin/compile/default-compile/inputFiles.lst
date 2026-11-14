@@ -4,6 +4,12 @@ C:\Users\Remakker\Desktop\thindesk\src\main\java\com\pfc\thindesk\controller\Cha
 C:\Users\Remakker\Desktop\thindesk\src\main\java\com\pfc\thindesk\controller\ClienteController.java
 C:\Users\Remakker\Desktop\thindesk\src\main\java\com\pfc\thindesk\controller\HomeController.java
 C:\Users\Remakker\Desktop\thindesk\src\main\java\com\pfc\thindesk\controller\HorarioAtendimentoController.java
+C:\Users\Remakker\Desktop\thindesk\src\main\java\com\pfc\thindesk\dashboard\DashboardController.java
+C:\Users\Remakker\Desktop\thindesk\src\main\java\com\pfc\thindesk\dashboard\DashboardExceptionHandler.java
+C:\Users\Remakker\Desktop\thindesk\src\main\java\com\pfc\thindesk\dashboard\DashboardFiltro.java
+C:\Users\Remakker\Desktop\thindesk\src\main\java\com\pfc\thindesk\dashboard\DashboardRepository.java
+C:\Users\Remakker\Desktop\thindesk\src\main\java\com\pfc\thindesk\dashboard\DashboardResposta.java
+C:\Users\Remakker\Desktop\thindesk\src\main\java\com\pfc\thindesk\dashboard\DashboardService.java
 C:\Users\Remakker\Desktop\thindesk\src\main\java\com\pfc\thindesk\entity\Chamado.java
 C:\Users\Remakker\Desktop\thindesk\src\main\java\com\pfc\thindesk\entity\Cliente.java
 C:\Users\Remakker\Desktop\thindesk\src\main\java\com\pfc\thindesk\entity\HorarioAtendimento.java
