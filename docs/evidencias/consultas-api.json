@@ -1,0 +1,276 @@
+{
+  "capturadoEm": "2026-11-14T01:07:23.0738388-03:00",
+  "base": "http://localhost:8080",
+  "observacao": "Dados demonstrativos locais; cookies e credenciais não foram salvos.",
+  "consultas": [
+    {
+      "metodo": "GET",
+      "caminho": "/api/dashboard/resumo",
+      "http": 200,
+      "resposta": {
+        "total": 120,
+        "abertos": 24,
+        "emAndamento": 24,
+        "concluidos": 60,
+        "cancelados": 12,
+        "situacoes": [
+          {
+            "status": "Aberto",
+            "quantidade": 24,
+            "percentual": 20.0
+          },
+          {
+            "status": "Em andamento",
+            "quantidade": 24,
+            "percentual": 20.0
+          },
+          {
+            "status": "Concluído",
+            "quantidade": 60,
+            "percentual": 50.0
+          },
+          {
+            "status": "Cancelado",
+            "quantidade": 12,
+            "percentual": 10.0
+          },
+          {
+            "status": "Não informado",
+            "quantidade": 0,
+            "percentual": 0.0
+          }
+        ],
+        "qualidade": {
+          "semDataAbertura": 0,
+          "concluidosSemDataConclusao": 0
+        },
+        "atualizadoEm": "2026-11-14T04:07:22.946060100Z"
+      }
+    },
+    {
+      "metodo": "GET",
+      "caminho": "/api/dashboard/atendimentos?agrupamento=mes",
+      "http": 200,
+      "resposta": {
+        "agrupamento": "mes",
+        "serie": [
+          {
+            "periodo": "2026-08",
+            "quantidade": 10
+          },
+          {
+            "periodo": "2026-09",
+            "quantidade": 20
+          },
+          {
+            "periodo": "2026-10",
+            "quantidade": 21
+          },
+          {
+            "periodo": "2026-11",
+            "quantidade": 9
+          }
+        ]
+      }
+    },
+    {
+      "metodo": "GET",
+      "caminho": "/api/dashboard/tipos?limite=5",
+      "http": 200,
+      "resposta": {
+        "itens": [
+          {
+            "tipo": "Hardware",
+            "quantidade": 20
+          },
+          {
+            "tipo": "Rede",
+            "quantidade": 20
+          },
+          {
+            "tipo": "Software",
+            "quantidade": 20
+          }
+        ]
+      }
+    },
+    {
+      "metodo": "GET",
+      "caminho": "/api/dashboard/filtros",
+      "http": 200,
+      "resposta": {
+        "status": [
+          {
+            "valor": "Aberto",
+            "rotulo": "Aberto"
+          },
+          {
+            "valor": "Em andamento",
+            "rotulo": "Em andamento"
+          },
+          {
+            "valor": "Concluído",
+            "rotulo": "Concluído"
+          },
+          {
+            "valor": "Cancelado",
+            "rotulo": "Cancelado"
+          },
+          {
+            "valor": "__nao_informado__",
+            "rotulo": "Não informado"
+          }
+        ],
+        "tipos": [
+          {
+            "valor": "Acesso e permissões",
+            "rotulo": "Acesso e permissões"
+          },
+          {
+            "valor": "E-mail",
+            "rotulo": "E-mail"
+          },
+          {
+            "valor": "Hardware",
+            "rotulo": "Hardware"
+          },
+          {
+            "valor": "Impressoras",
+            "rotulo": "Impressoras"
+          },
+          {
+            "valor": "Rede",
+            "rotulo": "Rede"
+          },
+          {
+            "valor": "Software",
+            "rotulo": "Software"
+          }
+        ],
+        "tecnicos": [
+          {
+            "valor": "Ana Souza",
+            "rotulo": "Ana Souza"
+          },
+          {
+            "valor": "Bruno Lima",
+            "rotulo": "Bruno Lima"
+          },
+          {
+            "valor": "Carla Mendes",
+            "rotulo": "Carla Mendes"
+          },
+          {
+            "valor": "Diego Santos",
+            "rotulo": "Diego Santos"
+          },
+          {
+            "valor": "Elisa Costa",
+            "rotulo": "Elisa Costa"
+          }
+        ]
+      }
+    },
+    {
+      "metodo": "GET",
+      "caminho": "/api/dashboard/chamados?pagina=0&tamanho=2",
+      "http": 200,
+      "resposta": {
+        "itens": [
+          {
+            "id": "demo-dashboard-v1-119",
+            "descricao": "[DEMO] Erro ao abrir aplicativo",
+            "status": "Concluído",
+            "tipo": "Software",
+            "tecnico": "Ana Souza",
+            "usuario": "Juliana Freitas",
+            "dataAbertura": "2026-11-13T21:15:33.451Z",
+            "dataAtualizacao": "2026-11-14T03:44:33.451Z",
+            "dataConclusao": "2026-11-14T03:44:33.451Z",
+            "consideracoesTecnicas": "Diagnóstico realizado, configuração corrigida e funcionamento validado com o solicitante. Atendimento demonstrativo."
+          },
+          {
+            "id": "demo-dashboard-v1-120",
+            "descricao": "[DEMO] Computador reiniciando durante o uso",
+            "status": "Aberto",
+            "tipo": "Hardware",
+            "tecnico": "Diego Santos",
+            "usuario": "Rafael Martins",
+            "dataAbertura": "2026-11-14T03:35:33.451Z",
+            "dataAtualizacao": "2026-11-14T03:44:33.451Z",
+            "dataConclusao": null,
+            "consideracoesTecnicas": "Solicitação recebida e aguardando triagem da equipe técnica. Atendimento demonstrativo."
+          }
+        ],
+        "pagina": 0,
+        "tamanho": 2,
+        "totalElementos": 120,
+        "totalPaginas": 60
+      }
+    },
+    {
+      "metodo": "GET",
+      "caminho": "/api/dashboard/resumo?tipo=Hardware",
+      "http": 200,
+      "resposta": {
+        "total": 40,
+        "abertos": 8,
+        "emAndamento": 8,
+        "concluidos": 20,
+        "cancelados": 4,
+        "situacoes": [
+          {
+            "status": "Aberto",
+            "quantidade": 8,
+            "percentual": 20.0
+          },
+          {
+            "status": "Em andamento",
+            "quantidade": 8,
+            "percentual": 20.0
+          },
+          {
+            "status": "Concluído",
+            "quantidade": 20,
+            "percentual": 50.0
+          },
+          {
+            "status": "Cancelado",
+            "quantidade": 4,
+            "percentual": 10.0
+          },
+          {
+            "status": "Não informado",
+            "quantidade": 0,
+            "percentual": 0.0
+          }
+        ],
+        "qualidade": {
+          "semDataAbertura": 0,
+          "concluidosSemDataConclusao": 0
+        },
+        "atualizadoEm": "2026-11-14T04:07:23.048708Z"
+      }
+    },
+    {
+      "metodo": "GET",
+      "caminho": "/api/dashboard/resumo",
+      "autenticado": false,
+      "http": 401,
+      "resposta": {
+        "codigo": "NAO_AUTENTICADO",
+        "mensagem": "Entre no sistema para consultar o dashboard."
+      }
+    },
+    {
+      "metodo": "GET",
+      "caminho": "/api/dashboard/resumo?dataInicio=2026-11-30&dataFim=2026-11-01",
+      "autenticado": true,
+      "http": 400,
+      "resposta": {
+        "codigo": "FILTRO_INVALIDO",
+        "mensagem": "A data inicial deve ser anterior ou igual à data final."
+      }
+    }
+  ]
+}

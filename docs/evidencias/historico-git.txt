@@ -1,0 +1,9 @@
+*   5bdfab4 (origin/main) Merge da Develop para main
+|\  
+| * 78f52eb (HEAD -> develop, origin/develop) Adicionando o DashBoard e populando a base
+| * fe3a3b2 Implementando a API do dashboard
+* | f539751 Merge pull request #1 from MateusPsf/develop
+|\| 
+| * 3b5daf4 Adicionnando o ciclo de funcionamento do sistema
+|/  
+* 9cd5791 ADicionando o inicio da Atividade
