@@ -23,13 +23,17 @@ public class SecurityConfig {
                 .defaultSuccessUrl("/", true) // Redirecionar para /home após login bem-sucedido
                 .permitAll() // Permitir que todos acessem a página de login
             )
-            .exceptionHandling(exceptions -> exceptions.defaultAuthenticationEntryPointFor(
+            .exceptionHandling(exceptions -> exceptions.authenticationEntryPoint(
                 (request, response, exception) -> {
-                    response.setStatus(401);
-                    response.setContentType("application/json;charset=UTF-8");
-                    response.getWriter().write("{\"codigo\":\"NAO_AUTENTICADO\",\"mensagem\":\"Entre no sistema para consultar o dashboard.\"}");
-                },
-                request -> request.getServletPath().startsWith("/api/dashboard/")
+                    String caminho = request.getRequestURI().substring(request.getContextPath().length());
+                    if (caminho.startsWith("/api/dashboard/")) {
+                        response.setStatus(401);
+                        response.setContentType("application/json;charset=UTF-8");
+                        response.getWriter().write("{\"codigo\":\"NAO_AUTENTICADO\",\"mensagem\":\"Entre no sistema para consultar o dashboard.\"}");
+                    } else {
+                        response.sendRedirect(request.getContextPath() + "/login");
+                    }
+                }
             ))
             .logout(logout -> logout
                 .logoutUrl("/logout")

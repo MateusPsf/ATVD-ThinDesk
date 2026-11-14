@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard administrativo · Thindesk</title>
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+    <script defer th:src="@{/js/script.js}"></script>
+    <script defer th:src="@{/js/dashboard.js}"></script>
+</head>
+<body class="dashboard-page">
+    <a href="#painel" class="skip-link">Pular para o conteúdo</a>
+    <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
+    <button class="toggle-btn" type="button" aria-label="Abrir ou fechar menu" aria-controls="sidebar" aria-expanded="false">☰</button>
+    <main id="painel" class="dashboard" th:attr="data-api=@{/api/dashboard/},data-login=@{/login}">
+        <header class="page-header">
+            <div><p class="eyebrow">THINDESK / VISÃO ADMINISTRATIVA</p><h1>Operação em foco<span>.</span></h1>
+                <p class="subtitle">Acompanhe seus chamados e transforme dados em decisões.</p></div>
+            <div class="header-actions"><span class="live-label"><span></span> Dados da operação</span>
+                <button id="atualizar" class="button button-primary" type="button">↻ Atualizar dados</button></div>
+        </header>
+
+        <section class="filter-panel" aria-labelledby="titulo-filtros">
+            <div class="section-heading"><h2 id="titulo-filtros">Filtrar operação</h2><span id="ultima-atualizacao">Aguardando primeira atualização</span></div>
+            <form id="filtros-form">
+                <div class="filter-grid">
+                    <label>Data inicial<input type="date" name="dataInicio" min="0001-01-01" max="9998-12-31"></label>
+                    <label>Data final<input type="date" name="dataFim" min="0001-01-01" max="9998-12-31"></label>
+                    <label>Situação<select name="status" disabled><option value="">Todas as situações</option></select></label>
+                    <label>Tipo de chamado<select name="tipo" disabled><option value="">Todos os tipos</option></select></label>
+                    <label>Técnico<select name="tecnico" disabled><option value="">Todos os técnicos</option></select></label>
+                    <label>Agrupar gráfico<select name="agrupamento"><option value="">Automático</option><option value="dia">Por dia</option><option value="mes">Por mês</option></select></label>
+                </div>
+                <div class="filter-footer"><p>O período considera a abertura dos chamados. Gráfico e ranking consideram também a conclusão no período.</p>
+                    <div class="button-group"><button type="button" id="limpar" class="button button-quiet">Limpar filtros</button><button type="submit" class="button button-dark">Aplicar filtros</button></div></div>
+            </form>
+        </section>
+
+        <div id="aviso" class="notice" role="status" aria-live="polite" hidden></div>
+        <div id="erro" class="notice notice-error" role="alert" hidden><span id="erro-texto"></span> <button id="tentar" class="button button-small" type="button">Tentar novamente</button><a id="entrar" th:href="@{/login}" hidden>Entrar novamente</a></div>
+        <p id="qualidade" class="quality-note" hidden></p>
+
+        <section class="metrics" aria-label="Indicadores gerais" id="indicadores">
+            <article class="metric metric-total"><div><span>Total de chamados</span><span class="metric-symbol" aria-hidden="true">↗</span></div><strong id="total">—</strong><small>Na consulta atual</small></article>
+            <article class="metric"><div><span>Abertos</span><i class="dot dot-blue"></i></div><strong id="abertos">—</strong><small>Aguardando atendimento</small></article>
+            <article class="metric"><div><span>Em andamento</span><i class="dot dot-amber"></i></div><strong id="emAndamento">—</strong><small>Em atendimento técnico</small></article>
+            <article class="metric"><div><span>Concluídos</span><i class="dot dot-green"></i></div><strong id="concluidos">—</strong><small>Atendimentos finalizados</small></article>
+            <article class="metric"><div><span>Cancelados</span><i class="dot dot-gray"></i></div><strong id="cancelados">—</strong><small>Encerrados sem conclusão</small></article>
+        </section>
+
+        <div class="charts-grid">
+            <section class="panel timeline-panel" aria-labelledby="titulo-atendimentos">
+                <div class="section-heading"><div><p class="eyebrow">EVOLUÇÃO DO ATENDIMENTO</p><h2 id="titulo-atendimentos">Chamados concluídos</h2></div><span id="agrupamento-ativo" class="tag">Por período</span></div>
+                <div id="grafico-periodo" class="timeline chart-placeholder"><p>Carregando atendimentos…</p></div>
+                <details class="chart-details"><summary>Ver dados do gráfico</summary><div class="table-scroll"><table><caption class="sr-only">Atendimentos por período</caption><thead><tr><th>Período</th><th>Concluídos</th></tr></thead><tbody id="dados-periodo"></tbody></table></div></details>
+            </section>
+            <section class="panel" aria-labelledby="titulo-situacoes"><div class="section-heading"><div><p class="eyebrow">DISTRIBUIÇÃO ATUAL</p><h2 id="titulo-situacoes">Situação dos chamados</h2></div></div>
+                <div id="grafico-situacoes" class="situations"><p class="empty">Carregando situações…</p></div>
+            </section>
+        </div>
+
+        <section class="panel ranking-panel" aria-labelledby="titulo-ranking"><div class="section-heading"><div><p class="eyebrow">TIPOS MAIS ATENDIDOS</p><h2 id="titulo-ranking">Onde está a demanda</h2></div><span class="tag">Top 5 · concluídos</span></div>
+            <div id="ranking"><p class="empty">Carregando ranking…</p></div></section>
+
+        <section class="panel tickets-panel" aria-labelledby="titulo-chamados"><div class="section-heading"><div><p class="eyebrow">ACOMPANHAMENTO TÉCNICO</p><h2 id="titulo-chamados">Chamados da operação</h2></div><span id="total-lista" class="tag">— chamados</span></div>
+            <div class="table-scroll"><table class="tickets-table"><caption class="sr-only">Chamados e considerações técnicas</caption><thead><tr><th>Chamado / considerações</th><th>Situação</th><th>Tipo</th><th>Técnico / solicitante</th><th>Abertura</th><th>Conclusão</th></tr></thead><tbody id="lista-chamados"><tr><td colspan="6" class="empty">Carregando chamados…</td></tr></tbody></table></div>
+            <div class="pagination"><span id="pagina-info" role="status" aria-live="polite">Página —</span><div class="button-group"><button id="anterior" type="button" class="button button-small" disabled>← Anterior</button><button id="proxima" type="button" class="button button-small" disabled>Próxima →</button></div></div>
+        </section>
+        <footer class="dashboard-footer"><span>Thindesk · Dashboard administrativo</span><span>Datas exibidas no horário de São Paulo</span></footer>
+        <noscript><p class="notice notice-error">Ative o JavaScript no navegador para consultar o dashboard.</p></noscript>
+    </main>
+</body>
+</html>

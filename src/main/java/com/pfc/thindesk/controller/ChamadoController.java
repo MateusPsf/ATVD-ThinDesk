@@ -26,13 +26,13 @@ public class ChamadoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Chamado> atualizarChamado(@PathVariable String id, @RequestBody Chamado chamadoAtualizado) {
+    public ResponseEntity<Chamado> atualizarChamado(@PathVariable("id") String id, @RequestBody Chamado chamadoAtualizado) {
         Chamado chamado = chamadoService.atualizarChamado(id, chamadoAtualizado);
         return ResponseEntity.ok(chamado);
     }
 
     @PostMapping("/atualizar/{id}")
-    public String atualizarChamado(@PathVariable String id, @ModelAttribute Chamado chamadoAtualizado, Model model) {
+    public String atualizarChamado(@PathVariable("id") String id, @ModelAttribute Chamado chamadoAtualizado, Model model) {
         chamadoService.atualizarChamado(id, chamadoAtualizado);
         return "redirect:/chamados"; // Redireciona para a página da lista de chamados
     }

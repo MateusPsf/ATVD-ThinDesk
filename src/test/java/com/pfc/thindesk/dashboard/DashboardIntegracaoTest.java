@@ -75,6 +75,44 @@ class DashboardIntegracaoTest {
     }
 
     @Test
+    void dashboardRenderizaPaginaProtegidaERecursosLocais() throws Exception {
+        mvc.perform(get("/dashboard")).andExpect(status().is3xxRedirection());
+        mvc.perform(get("/dashboard").session(sessao)).andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith("text/html"))
+                .andExpect(content().string(org.hamcrest.Matchers.containsString("id=\"filtros-form\"")))
+                .andExpect(content().string(org.hamcrest.Matchers.containsString("data-api=\"/api/dashboard/\"")))
+                .andExpect(content().string(org.hamcrest.Matchers.containsString("/js/dashboard.js")));
+        mvc.perform(get("/js/dashboard.js")).andExpect(status().isOk());
+        mvc.perform(get("/css/dashboard.css")).andExpect(status().isOk());
+    }
+
+    @Test
+    void criacaoConclusaoEReaberturaAtualizamDashboard() throws Exception {
+        String aberto = """
+                {"descricao":"Teste do fluxo completo","status":"Aberto","tipo":"Fluxo de validação",
+                 "tecnico":"Ana","usuario":"Teste","consideracoesTecnicas":"Diagnóstico inicial"}
+                """;
+        String criado = mvc.perform(post("/api/chamados").session(sessao).contentType("application/json").content(aberto))
+                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        String id = new com.fasterxml.jackson.databind.ObjectMapper().readTree(criado).get("id").asText();
+        mvc.perform(get("/api/dashboard/resumo").session(sessao).param("tipo", "Fluxo de validação"))
+                .andExpect(status().isOk()).andExpect(jsonPath("$.abertos").value(1));
+        String concluido = aberto.replace("\"Aberto\"", "\"Concluído\"").replace("Diagnóstico inicial", "Solução aplicada");
+        mvc.perform(put("/api/chamados/" + id).session(sessao).contentType("application/json").content(concluido))
+                .andExpect(status().isOk()).andExpect(jsonPath("$.dataConclusao").isString());
+        mvc.perform(get("/api/dashboard/resumo").session(sessao).param("tipo", "Fluxo de validação"))
+                .andExpect(status().isOk()).andExpect(jsonPath("$.concluidos").value(1)).andExpect(jsonPath("$.abertos").value(0));
+        mvc.perform(get("/api/dashboard/atendimentos").session(sessao).param("tipo", "Fluxo de validação").param("agrupamento", "dia"))
+                .andExpect(status().isOk()).andExpect(jsonPath("$.serie[0].quantidade").value(1));
+        mvc.perform(get("/api/dashboard/chamados").session(sessao).param("tipo", "Fluxo de validação"))
+                .andExpect(status().isOk()).andExpect(jsonPath("$.itens[0].consideracoesTecnicas").value("Solução aplicada"));
+        mvc.perform(put("/api/chamados/" + id).session(sessao).contentType("application/json").content(aberto))
+                .andExpect(status().isOk()).andExpect(jsonPath("$.dataConclusao").isEmpty());
+        mvc.perform(get("/api/dashboard/tipos").session(sessao).param("tipo", "Fluxo de validação"))
+                .andExpect(status().isOk()).andExpect(jsonPath("$.itens").isEmpty());
+    }
+
+    @Test
     void calculaResumoEQualidadeIncluindoLegados() throws Exception {
         mvc.perform(get("/api/dashboard/resumo").session(sessao)).andExpect(status().isOk())
                 .andExpect(jsonPath("$.total").value(9)).andExpect(jsonPath("$.abertos").value(1))
