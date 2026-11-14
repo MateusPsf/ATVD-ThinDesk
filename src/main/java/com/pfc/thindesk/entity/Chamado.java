@@ -3,9 +3,12 @@ package com.pfc.thindesk.entity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.Instant;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.Indexed;
 
 
 @Document(collection = "chamados")
+@CompoundIndex(name = "dashboard_status_conclusao", def = "{'status': 1, 'dataConclusao': 1}")
 public class Chamado{
     
     @Id
@@ -15,6 +18,7 @@ public class Chamado{
     private String tipo;
     private String tecnico;
     private String usuario;
+    @Indexed(name = "dashboard_data_abertura")
     private Instant dataAbertura;
     private Instant dataAtualizacao;
     private Instant dataConclusao;
